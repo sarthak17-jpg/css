@@ -1,0 +1,33 @@
+// Program to demonstrate use of controllers (simulated external file) in Node.js
+
+// Import express
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+/* =========================
+   Controller (like external file)
+========================= */
+const userController = {
+    getUsers: (req, res) => {
+        res.send("List of users");
+    },
+
+    addUser: (req, res) => {
+        res.send("User added successfully");
+    }
+};
+
+/* =========================
+   Routes (using controller)
+========================= */
+app.get('/users', userController.getUsers);
+app.post('/users', userController.addUser);
+
+/* =========================
+   Server
+========================= */
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
